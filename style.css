@@ -10,27 +10,53 @@
     justify-content: center;
 }
 
-.add-book-btn {
+.display-book-form-btn {
     padding: 8px 16px;
     
 }
 
-.add-book-btn::after {
+.display-book-form-btn::after {
     content: "▼";
     margin-left: 12px;
 }
 
-.add-book-btn-collapsed::after {
+.display-book-form-btn-collapsed::after {
     content: "▲";
 }
 
 #new-book-form {
-    display: none;
     position: absolute;
     background-color: green;
-    margin-top: 20px;
+    top: 100%;
+    display: grid;
+    gap: 12px;
+    padding: 16px;
+    margin-top: 1px;
+    border: 3px solid black;
+    border-radius: 8px;
 }
 
+#new-book-form.hidden {
+    display: none;
+}
+
+.input-label-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    justify-items: center;
+}
+
+input:not([type="radio"]) {
+    border-radius: 8px;
+    border: 2px solid grey;
+    font-size: 16px;
+    padding: 4px;
+}
+
+#add-book-btn {
+    padding: 8px 16px;
+}
 
 .books-container {
     display: grid;

@@ -1,16 +1,8 @@
-const addBookBtn = document.querySelector(".add-book-btn");
+const displayBookFormBtn = document.querySelector(".display-book-form-btn");
 const newBookForm = document.querySelector("#new-book-form");
+const addBookBtn = document.querySelector("#add-book-btn");
 
-addBookBtn.addEventListener("click", (e) => {
-    const currentFormDisplay = getComputedStyle(newBookForm).getPropertyValue("display");
-    if (currentFormDisplay === "none") {
-        newBookForm.style.display = "block";
-        addBookBtn.classList.add("add-book-btn-collapsed");
-    } else {
-        newBookForm.style.display = "none";
-        addBookBtn.classList.remove("add-book-btn-collapsed");
-    }
-});
+
 
 const booksContainer = document.querySelector(".books-container");
 
@@ -24,6 +16,8 @@ Library.prototype.addBook = function(book) {
 };
 
 Library.prototype.displayBooks = function() {
+    // to avoid that the container repeat its children
+    booksContainer.replaceChildren();
     this.books.forEach(book => {
         const bookCard = book.createDomCard();
         booksContainer.appendChild(bookCard);
@@ -94,6 +88,7 @@ const talesOfJapanBook = new Book(
     "https://m.media-amazon.com/images/P/B07SGG6JGK.01._SCLZZZZZZZ_SX500_.jpg"
 );
 
+
 const myLibrary = new Library();
 
 myLibrary.addBook(theHobbitBook);
@@ -101,3 +96,35 @@ myLibrary.addBook(allTheLightBook);
 myLibrary.addBook(talesOfJapanBook);
 
 myLibrary.displayBooks();
+
+
+displayBookFormBtn.addEventListener("click", (e) => {
+    const currentFormDisplay = getComputedStyle(newBookForm).getPropertyValue("display");
+    if (currentFormDisplay === "none") {
+        newBookForm.classList.remove("hidden");
+        displayBookFormBtn.classList.add("display-book-form-btn-collapsed");
+    } else {
+        newBookForm.classList.add("hidden");
+        displayBookFormBtn.classList.remove("display-book-form-btn-collapsed");
+    }
+});
+
+newBookForm.addEventListener("submit", (e) => {
+    // to avoid page reload
+    e.preventDefault();
+    const formData = new FormData(newBookForm);
+    const bookRead = formData.get("read") === "yes";
+    const newBook = new Book(
+        formData.get("title"),
+        formData.get("author"),
+        formData.get("pages"),
+        formData.get("image-url"),
+        bookRead
+    );
+
+    myLibrary.addBook(newBook);
+    myLibrary.displayBooks();
+    
+    // to clear the form inputs after the new book is added
+    newBookForm.reset();
+});

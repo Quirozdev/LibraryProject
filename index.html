@@ -9,24 +9,24 @@
 </head>
 <body>
     <h1>Books</h1>
-    <button class="add-book-btn">Add book</button>
     <div class="form-container">
-        <form id="new-book-form">
+        <button class="display-book-form-btn">Add book</button>
+        <form id="new-book-form" class="hidden">
             <div class="input-label-container">
                 <label for="title">Book title</label>
-                <input type="text" id="title" required>
+                <input type="text" id="title" name="title" required>
             </div>
             <div class="input-label-container">
                 <label for="author">Book author</label>
-                <input type="text" id="author" required>
+                <input type="text" id="author" name="author" required>
             </div>
             <div class="input-label-container">
                 <label for="image-url">Book image URL</label>
-                <input type="url" id="image-url" required>
+                <input type="url" id="image-url" name="image-url" required>
             </div>
             <div class="input-label-container">
                 <label for="pages">Number of pages</label>
-                <input type="number" id="pages" required>
+                <input type="number" id="pages" name="pages" required>
             </div>
             <fieldset>
                 <legend>Have you read it?</legend>
@@ -35,6 +35,7 @@
                 <label for="no">No</label>
                 <input type="radio" id="no" name="read" value="no">
             </fieldset>
+            <button id="add-book-btn" type="submit">Add</button>
         </form>
     </div>
     <main>
