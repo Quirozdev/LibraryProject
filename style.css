@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.form-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.add-book-btn {
+    padding: 8px 16px;
+    
+}
+
+.add-book-btn::after {
+    content: "▼";
+    margin-left: 12px;
+}
+
+.add-book-btn-collapsed::after {
+    content: "▲";
+}
+
+#new-book-form {
+    display: none;
+    position: absolute;
+    background-color: green;
+    margin-top: 20px;
+}
+
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+}
+
+.book-card {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-image {
+    object-fit: contain;
+    width: 100%;
+    height: 300px;
+    object-position: center;
+}
