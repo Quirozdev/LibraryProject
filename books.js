@@ -18,8 +18,8 @@ Library.prototype.addBook = function(book) {
 Library.prototype.displayBooks = function() {
     // to avoid that the container repeat its children
     booksContainer.replaceChildren();
-    this.books.forEach(book => {
-        const bookCard = book.createDomCard();
+    this.books.forEach((book, index) => {
+        const bookCard = book.createDomCard(index);
         booksContainer.appendChild(bookCard);
     });
 };
@@ -32,7 +32,7 @@ function Book(title, author, pages, imageUrl, read) {
     this.read = read;
 }
 
-Book.prototype.createDomCard = function() {
+Book.prototype.createDomCard = function(index) {
     const bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
 
@@ -56,11 +56,25 @@ Book.prototype.createDomCard = function() {
     bookReadBtn.textContent = this.read ? "Book read" : "Book not read yet";
     bookReadBtn.classList.add("book-read-btn");
 
+    const deleteBookBtn = document.createElement("button");
+    deleteBookBtn.textContent = "Delete";
+    deleteBookBtn.setAttribute("data-attribute", index);
+    deleteBookBtn.classList.add("delete-book-btn");
+
+    // data-attribute represents the index of the book in the array of books of the Library object
+    deleteBookBtn.addEventListener("click", (e) => {
+        const bookIndex = Number(e.target.getAttribute("data-attribute"));
+        myLibrary.books.splice(bookIndex, 1);
+        myLibrary.displayBooks();
+    })
+
+
     bookCard.appendChild(bookImage);
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(pagesNumber);
     bookCard.appendChild(bookReadBtn);
+    bookCard.appendChild(deleteBookBtn)
 
     return bookCard;
 };
