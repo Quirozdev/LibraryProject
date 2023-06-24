@@ -32,9 +32,15 @@ function Book(title, author, pages, imageUrl, read) {
     this.read = read;
 }
 
+Book.prototype.toggleReadStatus = function() {
+    this.read = !this.read;
+};
+
 Book.prototype.createDomCard = function(index) {
     const bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
+    // data-attribute represents the index of the book in the array of books of the Library object
+    bookCard.setAttribute("data-attribute", index);
 
     const bookImage = document.createElement("img");
     bookImage.src = this.imageUrl;
@@ -56,14 +62,21 @@ Book.prototype.createDomCard = function(index) {
     bookReadBtn.textContent = this.read ? "Book read" : "Book not read yet";
     bookReadBtn.classList.add("book-read-btn");
 
+    bookReadBtn.addEventListener("click", (e) => {
+        const bookIndex = Number(e.target.parentElement.getAttribute("data-attribute"));
+        const book = myLibrary.books[bookIndex];
+        // toggle read status, invert message
+        book.toggleReadStatus();
+        bookReadBtn.textContent = book.read ? "Book read" : "Book not read yet";
+    });
+
     const deleteBookBtn = document.createElement("button");
     deleteBookBtn.textContent = "Delete";
     deleteBookBtn.setAttribute("data-attribute", index);
     deleteBookBtn.classList.add("delete-book-btn");
 
-    // data-attribute represents the index of the book in the array of books of the Library object
     deleteBookBtn.addEventListener("click", (e) => {
-        const bookIndex = Number(e.target.getAttribute("data-attribute"));
+        const bookIndex = Number(e.target.parentElement.getAttribute("data-attribute"));
         myLibrary.books.splice(bookIndex, 1);
         myLibrary.displayBooks();
     })
@@ -99,7 +112,8 @@ const talesOfJapanBook = new Book(
     "Tales of Japan: Traditional Stories of Monsters and Magic",
     "Chronicle Books",
     168,
-    "https://m.media-amazon.com/images/P/B07SGG6JGK.01._SCLZZZZZZZ_SX500_.jpg"
+    "https://m.media-amazon.com/images/P/B07SGG6JGK.01._SCLZZZZZZZ_SX500_.jpg",
+    true
 );
 
 
