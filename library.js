@@ -18,10 +18,18 @@ Library.prototype.addBook = function(book) {
 Library.prototype.displayBooks = function() {
     // to avoid that the container repeat its children
     booksContainer.replaceChildren();
-    this.books.forEach((book, index) => {
-        const bookCard = book.createDomCard(index);
-        booksContainer.appendChild(bookCard);
-    });
+    // if there are books
+    if (this.books.length > 0) {
+        this.books.forEach((book, index) => {
+            const bookCard = book.createDomCard(index);
+            booksContainer.appendChild(bookCard);
+        });
+    } else {
+        const advice = document.createElement("h2");
+        advice.textContent = "There are no books, try adding some!";
+        advice.classList.add("advice");
+        booksContainer.appendChild(advice);
+    }
 };
 
 function Book(title, author, pages, imageUrl, read) {
@@ -56,18 +64,32 @@ Book.prototype.createDomCard = function(index) {
     bookAuthor.classList.add("book-author");
 
     const pagesNumber = document.createElement("p");
+    pagesNumber.classList.add("book-pages");
     pagesNumber.textContent = this.pages;
 
     const bookReadBtn = document.createElement("button");
-    bookReadBtn.textContent = this.read ? "Book read" : "Book not read yet";
+    const isBookAlreadyRead = this.read;
+    bookReadBtn.textContent = isBookAlreadyRead ? "Book read" : "Book not read yet";
     bookReadBtn.classList.add("book-read-btn");
 
+    if (isBookAlreadyRead) {
+        bookReadBtn.classList.add("read");
+    }
+
     bookReadBtn.addEventListener("click", (e) => {
-        const bookIndex = Number(e.target.parentElement.getAttribute("data-attribute"));
+        // bookCard is the parent of the parent (bookBtnsContainer)
+        // and it holds the data-attribute
+        const bookIndex = Number(e.target.parentElement.parentElement.getAttribute("data-attribute"));
         const book = myLibrary.books[bookIndex];
         // toggle read status, invert message
         book.toggleReadStatus();
-        bookReadBtn.textContent = book.read ? "Book read" : "Book not read yet";
+        if (book.read) {
+            bookReadBtn.textContent = "Book read";
+            bookReadBtn.classList.add("read");
+        } else {
+            bookReadBtn.textContent = "Book not read yet";
+            bookReadBtn.classList.remove("read");
+        }
     });
 
     const deleteBookBtn = document.createElement("button");
@@ -76,18 +98,22 @@ Book.prototype.createDomCard = function(index) {
     deleteBookBtn.classList.add("delete-book-btn");
 
     deleteBookBtn.addEventListener("click", (e) => {
-        const bookIndex = Number(e.target.parentElement.getAttribute("data-attribute"));
+        const bookIndex = Number(e.target.parentElement.parentElement.getAttribute("data-attribute"));
         myLibrary.books.splice(bookIndex, 1);
         myLibrary.displayBooks();
-    })
+    });
 
+    const bookBtnsContainer = document.createElement("div");
+    bookBtnsContainer.classList.add("book-buttons-container");
+
+    bookBtnsContainer.appendChild(bookReadBtn);
+    bookBtnsContainer.appendChild(deleteBookBtn);
 
     bookCard.appendChild(bookImage);
     bookCard.appendChild(bookTitle);
     bookCard.appendChild(bookAuthor);
     bookCard.appendChild(pagesNumber);
-    bookCard.appendChild(bookReadBtn);
-    bookCard.appendChild(deleteBookBtn)
+    bookCard.appendChild(bookBtnsContainer);
 
     return bookCard;
 };

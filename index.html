@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
+    <title>Library</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./books.js" defer></script>
+    <script src="./library.js" defer></script>
 </head>
 <body>
-    <h1>Books</h1>
+    <h1 class="title">Library</h1>
     <div class="form-container">
         <button class="display-book-form-btn">Add book</button>
         <form id="new-book-form" class="hidden">
             <div class="input-label-container">
                 <label for="title">Book title</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" id="title" name="title" placeholder="The Hobbit..." required>
             </div>
             <div class="input-label-container">
                 <label for="author">Book author</label>
-                <input type="text" id="author" name="author" required>
+                <input type="text" id="author" name="author" placeholder="Luis..." required>
             </div>
             <div class="input-label-container">
                 <label for="image-url">Book image URL</label>
-                <input type="url" id="image-url" name="image-url" required>
+                <input type="url" id="image-url" name="image-url" placeholder="https://imageurl.com" required>
             </div>
             <div class="input-label-container">
                 <label for="pages">Number of pages</label>
-                <input type="number" id="pages" name="pages" required>
+                <input type="number" id="pages" name="pages" placeholder="153" required>
             </div>
-            <fieldset>
+            <fieldset class="read-options-container">
                 <legend>Have you read it?</legend>
-                <label for="yes">Yes</label>
-                <input type="radio" id="yes" name="read" value="yes" checked>
-                <label for="no">No</label>
-                <input type="radio" id="no" name="read" value="no">
+                <div class="radio-options-container">
+                    <label for="yes">Yes</label>
+                    <input type="radio" id="yes" name="read" value="yes" checked>
+                </div>
+                <div class="radio-options-container">
+                    <label for="no">No</label>
+                    <input type="radio" id="no" name="read" value="no">
+                </div>
             </fieldset>
             <button id="add-book-btn" type="submit">Add</button>
         </form>
