@@ -1,51 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <script src="./library.js" defer></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1 class="title">Library</h1>
     <div class="form-container">
-        <button class="display-book-form-btn">Add book</button>
-        <form id="new-book-form" class="hidden">
-            <div class="input-label-container">
-                <label for="title">Book title</label>
-                <input type="text" id="title" name="title" placeholder="The Hobbit..." required>
-            </div>
-            <div class="input-label-container">
-                <label for="author">Book author</label>
-                <input type="text" id="author" name="author" placeholder="Luis..." required>
-            </div>
-            <div class="input-label-container">
-                <label for="image-url">Book image URL</label>
-                <input type="url" id="image-url" name="image-url" placeholder="https://imageurl.com" required>
-            </div>
-            <div class="input-label-container">
-                <label for="pages">Number of pages</label>
-                <input type="number" id="pages" name="pages" placeholder="153" required>
-            </div>
-            <fieldset class="read-options-container">
-                <legend>Have you read it?</legend>
-                <div class="radio-options-container">
-                    <label for="yes">Yes</label>
-                    <input type="radio" id="yes" name="read" value="yes" checked>
-                </div>
-                <div class="radio-options-container">
-                    <label for="no">No</label>
-                    <input type="radio" id="no" name="read" value="no">
-                </div>
-            </fieldset>
-            <button id="add-book-btn" type="submit">Add</button>
-        </form>
+      <button class="display-book-form-btn">Add book</button>
+      <form id="new-book-form" class="hidden">
+        <div class="input-label-container">
+          <label for="title">Book title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            placeholder="The Hobbit..."
+            required
+          />
+        </div>
+        <div class="input-label-container">
+          <label for="author">Book author</label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            placeholder="Luis..."
+            required
+          />
+        </div>
+        <div class="input-label-container">
+          <label for="image-url">Book image URL</label>
+          <input
+            type="url"
+            id="image-url"
+            name="image-url"
+            placeholder="https://imageurl.com"
+            required
+          />
+        </div>
+        <div class="input-label-container">
+          <label for="pages">Number of pages</label>
+          <input
+            type="number"
+            id="pages"
+            name="pages"
+            placeholder="153"
+            min="0"
+            required
+          />
+        </div>
+        <fieldset class="read-options-container">
+          <legend>Have you read it?</legend>
+          <div class="radio-options-container">
+            <label for="yes">Yes</label>
+            <input type="radio" id="yes" name="read" value="yes" checked />
+          </div>
+          <div class="radio-options-container">
+            <label for="no">No</label>
+            <input type="radio" id="no" name="read" value="no" />
+          </div>
+        </fieldset>
+        <button id="add-book-btn" type="submit">Add</button>
+      </form>
     </div>
     <main>
-        <div class="books-container">
-            
-        </div>
+      <div class="books-container"></div>
     </main>
-</body>
+  </body>
 </html>
